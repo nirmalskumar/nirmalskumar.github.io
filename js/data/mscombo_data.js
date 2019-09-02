@@ -1,4 +1,4 @@
-define([], function(){
+define(['d3'], function(d3){
     var dt = [];
     var bar_dt = {};
     var line1_dt = {};
