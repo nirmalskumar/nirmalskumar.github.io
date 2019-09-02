@@ -28,6 +28,14 @@ define(['d3'], function (d3) {
     var from_date = '2019-08-01';
     var to_date = '2019-08-31';
 
+    var get_date_range = function () {
+        var date_range = d3.timeDays(new Date(2019, 7, 1), new Date(2019, 7, 31));
+        var dt_range = date_range.map(function (d) {
+            return dt_format(d);
+        });
+        return dt_range;
+    };
+
     var range = get_date_range();
     var dt_format = d3.timeFormat("%Y-%m-%d");
 
@@ -49,13 +57,7 @@ define(['d3'], function (d3) {
 
         return dt;
     };
-    var get_date_range = function () {
-        var date_range = d3.timeDays(new Date(2019, 7, 1), new Date(2019, 7, 31));
-        var dt_range = date_range.map(function (d) {
-            return dt_format(d);
-        });
-        return dt_range;
-    };
+    
 
 
     return {
