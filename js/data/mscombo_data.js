@@ -15,7 +15,7 @@ define(['d3'], function (d3) {
         "referenceScale": 1,
         "data": []
     };
-    var low_tempertature = {
+    var low_temperature = {
         "seriesName": "Low",
         "renderAs": "line",
         "UOM": "F",
@@ -53,7 +53,7 @@ define(['d3'], function (d3) {
         generate_random_data(usage_data, 20);
         generate_random_data(high_temperature, 40);
         get_random_data(low_temperature, 20);
-        dt.push(usage_data, high_temperature, low_tempertature);
+        dt.push(usage_data, high_temperature, low_temperature);
 
         return dt;
     };
