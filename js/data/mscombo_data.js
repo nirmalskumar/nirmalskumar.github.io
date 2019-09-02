@@ -40,7 +40,6 @@ define(['d3'], function (d3) {
     
 
     var generate_random_data = function (ds, max) {
-        console.log(ds);
         range.forEach(function (date) {
             var value = Math.floor(Math.random() * Math.floor(max));
             ds['data'].push({
@@ -53,7 +52,7 @@ define(['d3'], function (d3) {
     var get_random_data = function () {
         generate_random_data(usage_data, 20);
         generate_random_data(high_temperature, 40);
-        get_random_data(low_temperature, 20);
+        generate_random_data(low_temperature, 20);
         dt.push(usage_data, high_temperature, low_temperature);
 
         return dt;
