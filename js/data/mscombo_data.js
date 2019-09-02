@@ -35,7 +35,7 @@ define(['d3'], function(d3){
 
 
     return {
-        getRandomData: function(){
+        getRandomData: function(max){
             return get_random_data(max);
         }
     }
