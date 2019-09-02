@@ -39,9 +39,10 @@ define(['d3'], function (d3) {
     var range = get_date_range();
     
 
-    var generate_random_data = function (ds, max) {
+    var generate_random_data = function (ds, min, max) {
         range.forEach(function (date) {
-            var value = Math.floor(Math.random() * Math.floor(max));
+            var value = Math.floor(Math.random() * (max - min + 1)) + min;
+            //var value = Math.floor(Math.random() * Math.floor(max));
             ds['data'].push({
                 "label": date,
                 "value": value
@@ -50,9 +51,9 @@ define(['d3'], function (d3) {
     };
 
     var get_random_data = function () {
-        generate_random_data(usage_data, 20);
-        generate_random_data(high_temperature, 40);
-        generate_random_data(low_temperature, 20);
+        generate_random_data(usage_data, 50, 80);
+        generate_random_data(high_temperature, 50, 70);
+        generate_random_data(low_temperature, 10, 20);
         dt.push(usage_data, high_temperature, low_temperature);
 
         return dt;
