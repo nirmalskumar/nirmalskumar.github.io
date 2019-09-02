@@ -27,7 +27,7 @@ define(['d3'], function (d3) {
 
     var from_date = '2019-08-01';
     var to_date = '2019-08-31';
-
+    var dt_format = d3.timeFormat("%Y-%m-%d");
     var get_date_range = function () {
         var date_range = d3.timeDays(new Date(2019, 7, 1), new Date(2019, 7, 31));
         var dt_range = date_range.map(function (d) {
@@ -37,7 +37,7 @@ define(['d3'], function (d3) {
     };
 
     var range = get_date_range();
-    var dt_format = d3.timeFormat("%Y-%m-%d");
+    
 
     var generate_random_data = function (ds, max) {
         range.forEach(function (date) {
