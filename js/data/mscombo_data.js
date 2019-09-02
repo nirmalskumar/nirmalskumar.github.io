@@ -40,6 +40,7 @@ define(['d3'], function (d3) {
     
 
     var generate_random_data = function (ds, max) {
+        console.log(ds);
         range.forEach(function (date) {
             var value = Math.floor(Math.random() * Math.floor(max));
             ds['data'].push({
