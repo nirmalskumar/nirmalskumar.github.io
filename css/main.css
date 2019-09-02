@@ -1,0 +1,124 @@
+.chart{
+    position: relative;
+    background: "#fff";
+    margin-bottom: 6px;
+    display: inline-block;
+}
+
+.chart .text {
+        padding-left: 38%;
+        padding-top: 25%;
+    }
+
+
+.chart-tooltip {
+    position: absolute;
+    z-index: 10;
+    border-radius: 2px;
+    padding: 15px;
+    background: #f9f7f7;
+    color: #000000;
+    border: 1px solid #a9a9a9;
+    font-size: 1.5em;
+    pointer-events: none;
+    width: auto;
+}
+
+.chart-tooltip_table {
+        display: table;
+        line-height: 75%;
+        margin: -5px;   
+}
+
+.chart-tooltip_row {
+        display: table-row;
+    }
+
+.chart-tooltip_cell {
+        display: table-cell;
+        padding: 3px;
+        border-bottom: 1px solid;
+        font-size: 60%;
+    }
+
+
+.chart-title {
+    font-weight: normal !important;
+    fill: #3f6d6d;
+}
+
+rect:hover {
+    fill-opacity: 1;
+}
+
+.positive {
+    fill: #ff7f50;
+    fill-opacity: 0.75;
+}
+
+.negative {
+    fill: #ff7f50;
+    fill-opacity: 0.75;
+}
+
+.circle--blue {
+        stroke: #2e0085;
+        fill: #2e0085;
+    }
+
+.circle--red {
+        stroke: #960012;
+        fill: #960012;
+    }
+}
+
+.line {
+    fill: none;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    stroke-width: 2px;
+}
+
+.blue {
+    stroke: #2e0085;
+    fill: none;
+}
+
+.red {
+    stroke: #FF0027;
+    fill: none;
+}
+
+.needle-pointer {
+    fill: #FF0027;
+}
+
+.axis {
+    font-weight: normal !important;
+}
+    .axis path {
+        stroke-width: 0.5px;
+        stroke: #413e3e;
+    }
+
+    .axis line {
+        fill: none;
+        stroke: #413e3e;
+        shape-rendering: crispEdges;
+    }
+
+
+.xAxisTitle,
+.yAxisTitle {
+    fill: #294258;
+    font-size: 12px;
+}
+
+.rotate_text {
+    transform: rotate(90);
+}
+
+.tick text {
+    color: red;
+}
+

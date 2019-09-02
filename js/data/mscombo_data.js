@@ -10,7 +10,7 @@ define(['d3'], function (d3) {
         "seriesName": "High",
         "renderAs": "line",
         "UOM": "F",
-        "color": "blue",
+        "color": "red",
         "parentYAxis": "S",
         "referenceScale": 1,
         "data": []
@@ -19,7 +19,7 @@ define(['d3'], function (d3) {
         "seriesName": "Low",
         "renderAs": "line",
         "UOM": "F",
-        "color": "red",
+        "color": "blue",
         "parentYAxis": "S",
         "referenceScale": 1,
         "data": []
