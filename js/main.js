@@ -16,6 +16,7 @@ require(['./conf/dev'], function () {
                 mscombo_data = MSComboData.getRandomData(values);
                 $('.canvas').empty();
                 drawChart();
+                return false;
             });
 
             mscombo_data = MSComboData.getRandomData(values);
