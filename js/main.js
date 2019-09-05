@@ -18,6 +18,12 @@ require(['./conf/dev'], function () {
                 drawChart();
                 return false;
             });
+            $("#range-form").on('reset', function(){
+                setTimeout(function() {
+                    $("#redraw").trigger('click');
+                  }, 1);
+                
+            });
 
             mscombo_data = MSComboData.getRandomData(values);
             drawChart();
