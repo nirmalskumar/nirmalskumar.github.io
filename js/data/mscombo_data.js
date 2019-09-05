@@ -40,6 +40,7 @@ define(['d3'], function (d3) {
     
 
     var generate_random_data = function (ds, min, max) {
+        ds['data'] = [];
         range.forEach(function (date) {
             var value = Math.floor(Math.random() * (max - min + 1)) + min;
             //var value = Math.floor(Math.random() * Math.floor(max));
@@ -50,10 +51,11 @@ define(['d3'], function (d3) {
         });
     };
 
-    var get_random_data = function () {
-        generate_random_data(usage_data, 50, 80);
+    var get_random_data = function (range) {
+        generate_random_data(usage_data, Number(range['min']), Number(range['max']));
         generate_random_data(high_temperature, 50, 70);
         generate_random_data(low_temperature, 10, 20);
+        dt = [];
         dt.push(usage_data, high_temperature, low_temperature);
 
         return dt;
@@ -62,8 +64,8 @@ define(['d3'], function (d3) {
 
 
     return {
-        getRandomData: function () {
-            return get_random_data();
+        getRandomData: function (range) {
+            return get_random_data(range);
         }
     }
 });

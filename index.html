@@ -1,11 +1,45 @@
 <!doctype html>
 <html>
-	<head>
-		<title>D3 Charts - Sample</title>
-		<link rel="stylesheet" href="css/main.css">
-		<script type="text/javascript" data-main="/js/main" src="/js/require.min.js"></script>
-	</head>
-	<body>
-		<div id="combo-chart" style="height:500px;width:100%;"></div>
-	</body>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>D3 Charts - Sample</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+	<link rel="stylesheet" href="css/main.css">
+	<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+	<script type="text/javascript" data-main="/js/main" src="/js/require.min.js"></script>
+</head>
+
+<body>
+	<form id="range-form" class="container" style="max-width: 620px;">
+		<div class="field is-horizontal">
+			<div class="field-label is-normal">
+				<label class="label">Usage range</label>
+			</div>
+			<div class="field-body">
+				<div class="field">
+					<p class="control">
+						<input class="input" type="text" name="min" placeholder="Minimum" />
+					</p>
+				</div>
+				<div class="field">
+					<p class="control">
+						<input class="input" type="text" name="max" placeholder="Maximum" />
+					</p>
+				</div>
+				<div class="field">
+						<div class="control">
+							<button id="redraw" type="button" class="button is-info">
+								Redraw
+							</button>
+						</div>
+					</div>
+			</div>
+		</div>
+	</form>
+	<div id="combo-chart" style="height:500px;width:100%;"></div>
+</body>
+
 </html>
