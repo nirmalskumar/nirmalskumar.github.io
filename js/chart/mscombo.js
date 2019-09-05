@@ -347,46 +347,46 @@ define(['jquery', 'd3', 'chartBase'], function($, d3, Chart) {
             //To add buffer to min and max values
 
             if (y1max > 0 && y1min > 0) {
-                y1min = y1min / 1.30;
-                y1max = y1max * 1.30;
+                y1min = y1min / 1.01;
+                y1max = y1max * 1.01;
             } else if (y1min === 0 && y1max === 0) {
                 y1min = 0;
                 y1max = 100;
             } else if (y1min === 0 && y1max > 0) {
                 y1min = 0;
-                y1max = y1max * 1.30;
+                y1max = y1max * 1.01;
             } else if (y1min < 0 && y1max < 0) {
-                y1min = y1min * 1.30;
-                y1max = y1max * 1.30;
+                y1min = y1min * 1.01;
+                y1max = y1max * 1.01;
             } else {
                 if (y1min < 0 && y1max === 0) {
-                    y1min = y1min * 1.30;
+                    y1min = y1min * 1.01;
                     y1max = 0;
                 } else if (y1min < 0 && y1max > 0) {
-                    y1min = y1min * 1.30;
-                    y1max = y1max * 1.30;
+                    y1min = y1min * 1.01;
+                    y1max = y1max * 1.01;
                 }
             }
 
             if (y2max > 0 && y2min > 0) {
-                y2min = y2min / 1.30;
-                y2max = y2max * 1.30;
+                y2min = y2min / 1.01;
+                y2max = y2max * 1.01;
             } else if (y2min === 0 && y2max === 0) {
                 y2min = 0;
                 y2max = 100;
             } else if (y2min === 0 && y2max > 0) {
                 y2min = 0;
-                y2max = y2max * 1.30;
+                y2max = y2max * 1.01;
             } else if (y2min < 0 && y2max < 0) {
-                y2min = y2min * 1.30;
-                y2max = y2max * 1.30;
+                y2min = y2min * 1.01;
+                y2max = y2max * 1.01;
             } else {
                 if (y2min < 0 && y2max === 0) {
-                    y2min = y2min * 1.30;
+                    y2min = y2min * 1.01;
                     y2max = 0;
                 } else if (y2min < 0 && y2max > 0) {
-                    y2min = y2min * 1.30;
-                    y2max = y2max * 1.30;
+                    y2min = y2min * 1.01;
+                    y2max = y2max * 1.01;
 
                 }
             }
