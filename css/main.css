@@ -16,9 +16,9 @@
     z-index: 10;
     border-radius: 2px;
     padding: 15px;
-    background: #f9f7f7;
-    color: #000000;
-    border: 1px solid #a9a9a9;
+    background: #555;
+    color: #fff;
+    /*border: 1px solid #a9a9a9;*/
     font-size: 1.5em;
     pointer-events: none;
     width: auto;
@@ -38,7 +38,7 @@
         display: table-cell;
         padding: 3px;
         border-bottom: 1px solid;
-        font-size: 60%;
+        font-size: 0.5em;
     }
 
 
