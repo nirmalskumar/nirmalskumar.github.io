@@ -401,9 +401,14 @@ define(['jquery', 'd3'], function ($, d3) {
                     max = Number(max) + 1;
                 }
             }
-            else if((max - min) > 2) {
-                min = min / 1.01;
-                max = max * 1.01;
+            else {
+                if(max - min < 2){
+                    min = min / 1.001;
+                }
+                else {
+                    min = min / 1.01;
+                    max = max * 1.01;
+                }
             }
         }
         return [min, max];
