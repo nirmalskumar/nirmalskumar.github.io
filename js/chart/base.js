@@ -219,19 +219,13 @@ define(['jquery', 'd3'], function ($, d3) {
         } else {
             ticks_number = self.setYTicks(min, max);
             y_axis.ticks(ticks_number).tickFormat(function (d, i, n) {
-                
-                if(i == 0){
+                if(n[i+1]){
                     if (Number.isInteger(d)) {
                         return d;
                     }
-                    else{
-                        return parseInt(d, 10);
+                    else if(i == 0){
+                            return parseInt(d, 10);
                     }
-                }
-                else if(n[i+1]){
-                    if (Number.isInteger(d)) {
-                        return d;
-                    }   
                 }
                 else{
                     if (Number.isInteger(d)) {
@@ -253,11 +247,16 @@ define(['jquery', 'd3'], function ($, d3) {
             ticks_number = max;
         }
 
+        if((max - min) < 2){
+            ticks_number = 2;
+        }
+
         if (orientation == 'right') {
             if (max >= 10) {
                 ticks_number = 10;
             }
         }
+        console.log(ticks_number, min, max);
         return ticks_number;
     };
 
@@ -403,7 +402,7 @@ define(['jquery', 'd3'], function ($, d3) {
                     max = Number(max) + 1;
                 }
             }
-            else {
+            else if((max - min) > 2) {
                 min = min / 1.01;
                 max = max * 1.01;
             }
