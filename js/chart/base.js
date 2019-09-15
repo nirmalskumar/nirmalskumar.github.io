@@ -1,5 +1,5 @@
-define(['jquery', 'd3'], function($, d3) {
-    var Chart = function() {
+define(['jquery', 'd3'], function ($, d3) {
+    var Chart = function () {
         if (!(this instanceof Chart)) {
             throw new TypeError("Cannot call Chart as a function");
         }
@@ -8,7 +8,7 @@ define(['jquery', 'd3'], function($, d3) {
 
     //Chart.prototype = Object.create(Base);
 
-    Chart.prototype.initSetup = function(options) {
+    Chart.prototype.initSetup = function (options) {
         var self = this;
         //Create the canvas and obtain its configurations
         var canvas_object = self.setupCanvas(options.chart);
@@ -42,7 +42,7 @@ define(['jquery', 'd3'], function($, d3) {
 
     };
 
-    Chart.prototype.setupCanvas = function(chart_config) {
+    Chart.prototype.setupCanvas = function (chart_config) {
         var self = this;
         var canvas_config = self.setCanvasMargins(chart_config.anchor);
         var canvas = self.createCanvas(canvas_config, chart_config.anchor);
@@ -52,7 +52,7 @@ define(['jquery', 'd3'], function($, d3) {
         };
     };
 
-    Chart.prototype.setCanvasMargins = function(chart_anchor) {
+    Chart.prototype.setCanvasMargins = function (chart_anchor) {
         var self = this;
 
         var container_width = $(chart_anchor).outerWidth(true);
@@ -83,7 +83,7 @@ define(['jquery', 'd3'], function($, d3) {
         return canvas_config;
     };
 
-    Chart.prototype.createCanvas = function(canvas_config, anchor) {
+    Chart.prototype.createCanvas = function (canvas_config, anchor) {
         $(anchor).empty().html();
         var canvas = d3.select(anchor)
             .append('svg')
@@ -96,7 +96,7 @@ define(['jquery', 'd3'], function($, d3) {
         return canvas;
     };
 
-    Chart.prototype.xAxis = function(x_scale) {
+    Chart.prototype.xAxis = function (x_scale) {
         var x_axis = d3.axisBottom(x_scale).tickPadding(5);
         return x_axis;
     };
@@ -106,14 +106,14 @@ define(['jquery', 'd3'], function($, d3) {
         return y_axis;
     };
 
-    Chart.prototype.y1Axis = function(y_scale) {
-        var y1_axis = d3.axisRight(y_scale).tickPadding(5).tickFormat(function(d) {
+    Chart.prototype.y1Axis = function (y_scale) {
+        var y1_axis = d3.axisRight(y_scale).tickPadding(5).tickFormat(function (d) {
             return d + '°'
         });
         return y1_axis;
     };
 
-    Chart.prototype.scaleX = function(width) {
+    Chart.prototype.scaleX = function (width) {
         var x_scale = d3.scaleBand()
             .range([0, width])
             .paddingInner(0.5)
@@ -121,13 +121,13 @@ define(['jquery', 'd3'], function($, d3) {
         return x_scale;
     };
 
-    Chart.prototype.scaleY = function(height) {
+    Chart.prototype.scaleY = function (height) {
         var y_scale = d3.scaleLinear()
             .rangeRound([height, 0]);
         return y_scale;
     };
 
-    Chart.prototype.tooltip = function(ele) {
+    Chart.prototype.tooltip = function (ele) {
         var tooltip = d3.select(ele)
             .append("div")
             .attr("class", "chart-tooltip")
@@ -136,7 +136,7 @@ define(['jquery', 'd3'], function($, d3) {
         return tooltip;
     };
 
-    Chart.prototype.displayChartTitle = function(canvas, config, title) {
+    Chart.prototype.displayChartTitle = function (canvas, config, title) {
         canvas.append("g").append("text")
             .attr("x", (config.width / 2))
             .attr("y", -(config.margin.top / 2))
@@ -145,7 +145,7 @@ define(['jquery', 'd3'], function($, d3) {
             .text(title);
     };
 
-    Chart.prototype.displayXAxisTitle = function(canvas, config, title) {
+    Chart.prototype.displayXAxisTitle = function (canvas, config, title) {
         canvas.append("g").append("text")
             .attr("x", config.width / 2)
             .attr("y", (config.height + config.margin.bottom) - 5)
@@ -154,7 +154,7 @@ define(['jquery', 'd3'], function($, d3) {
             .text(title);
     };
 
-    Chart.prototype.displayYAxisTitle = function(canvas, config, title, unit, orientation) {
+    Chart.prototype.displayYAxisTitle = function (canvas, config, title, unit, orientation) {
         var t = canvas.append("g").append("text")
             .attr("transform", "rotate(-90)");
         if (orientation && orientation == 'right') {
@@ -178,7 +178,7 @@ define(['jquery', 'd3'], function($, d3) {
 
     };
 
-    Chart.prototype.attachX = function(canvas, config, x_axis, transformLabels) {
+    Chart.prototype.attachX = function (canvas, config, x_axis, transformLabels) {
 
         var xaxis = canvas.append("g")
             .attr("transform", "translate(0," + config.height + ")")
@@ -203,7 +203,7 @@ define(['jquery', 'd3'], function($, d3) {
         var mid = parseInt(ticks_count / 2, 10);
         var first = 0;
         var last = ticks_count - 1;
-        ticks.attr("class", function(d, i) {
+        ticks.attr("class", function (d, i) {
             // Note: i starts from zero
             if (i !== first && i !== last && i !== mid) {
                 d3.select(this).remove();
@@ -219,33 +219,40 @@ define(['jquery', 'd3'], function($, d3) {
                 y_axis.ticks(5).tickFormat(d3.format("d"));
             }
         } else {
-            y_axis.ticks(5);
+            //y_axis.ticks(5);
         }
         if (orientation == 'right') {
+            min = 10 * Math.round(min / 10);
+            max = 10 * Math.round(max / 10);
+            
+            y_axis.tickValues(d3.ticks(min, max, 10));
+            
             canvas.append("g").attr("class", "axis").attr("transform", "translate( " + config.width + ", 0 )").call(y_axis);
         } else {
+            console.log(min, max);
+            y_axis.ticks(5);
             canvas.append("g").attr("class", "axis").call(y_axis);
         }
     };
 
-    Chart.prototype.showValues = function(canvas, dataset, x_scale, y_scale) {
+    Chart.prototype.showValues = function (canvas, dataset, x_scale, y_scale) {
         canvas.append("g").selectAll("text")
             .data(dataset)
             .enter()
             .append("text")
-            .text(function(d) {
+            .text(function (d) {
                 return d.value;
             })
-            .attr("x", function(d, i) {
+            .attr("x", function (d, i) {
                 return x_scale(d.label) + x_scale.bandwidth() / 2;
             })
-            .attr("y", function(d) {
+            .attr("y", function (d) {
                 return y_scale(d.value);
             })
             .attr("text-anchor", "middle");
     };
 
-    Chart.prototype.showGridLines = function(canvas, config, y_scale) {
+    Chart.prototype.showGridLines = function (canvas, config, y_scale) {
         var ticks_data = y_scale.ticks();
         ticks_data.shift();
         canvas.append("g").selectAll("line.horizontalGrid").data(ticks_data).enter()
@@ -253,10 +260,10 @@ define(['jquery', 'd3'], function($, d3) {
             .attr("class", "horizontalGrid")
             .attr("x1", 0)
             .attr("x2", config.width)
-            .attr("y1", function(d) {
+            .attr("y1", function (d) {
                 return y_scale(d);
             })
-            .attr("y2", function(d) {
+            .attr("y2", function (d) {
                 return y_scale(d);
             })
             .attr("fill", "none")
@@ -265,7 +272,7 @@ define(['jquery', 'd3'], function($, d3) {
             .attr("stroke-width", "1px");
     };
 
-    Chart.prototype.getDateRange = function(from, to) {
+    Chart.prototype.getDateRange = function (from, to) {
         var dateRange = d3.timeDays(from, to);
         // This is a hack to include from and to dates as the
         // d3.timeDays function doesn't always generate range inclusive of start and end.
@@ -282,19 +289,19 @@ define(['jquery', 'd3'], function($, d3) {
 
     };
 
-    Chart.prototype.getDateFormat = function(dateFormat) {
+    Chart.prototype.getDateFormat = function (dateFormat) {
         dateFormat = dateFormat ? dateFormat : "%m/%d/%Y";
         var dt_format = d3.timeFormat(dateFormat);
         return dt_format;
     };
 
-    Chart.prototype.extractDateIndices = function(dt_string) {
+    Chart.prototype.extractDateIndices = function (dt_string) {
         var self = this;
         var input_format = dt_string.split(/\/|-/);
         var year;
         var month;
         var day;
-        $.each(input_format, function(i, x) {
+        $.each(input_format, function (i, x) {
             if (x === 'mm' || x === 'MM') {
                 month = i;
             } else if (x === 'yy' || x === 'YY' || x === 'YYYY') {
@@ -310,7 +317,7 @@ define(['jquery', 'd3'], function($, d3) {
         };
     };
 
-    Chart.prototype.convertDateFormat = function(data, from_format, to_format) {
+    Chart.prototype.convertDateFormat = function (data, from_format, to_format) {
         var self = this;
         if (from_format === undefined || to_format === undefined) {
             return false;
@@ -320,7 +327,7 @@ define(['jquery', 'd3'], function($, d3) {
 
         var new_data = [];
 
-        data.map(function(d) {
+        data.map(function (d) {
             var dt = d.label.split(/\/|-/);
             var new_dt = new Date(dt[indices.yr], dt[indices.mth] - 1, dt[indices.dt]);
             var label = dt_format(new_dt);
@@ -342,36 +349,42 @@ define(['jquery', 'd3'], function($, d3) {
         return new_data;
     };
 
-    Chart.prototype.getMinMax = function(data) {
+    Chart.prototype.getMinMax = function (data) {
 
         var temp = data.filter(function (d) {
             return (d.value != null)
         });
 
-        var min = d3.min(temp, function(d) {
-            return Number(d.value);
-        });
-        var max = d3.max(temp, function(d) {
-            return Number(d.value);
-        });
-        
-        if (min === max && min !== undefined) {
-            if (min > 0) {
-                min = 0;
-                max = Number(max);
-            } else if (min < 0) {
-                min = Number(max);
-                max = 0;
+        var min = 0;
+        var max = 0;
+
+        if (temp.length > 0) {
+            min = d3.min(temp, function (d) {
+                return Number(d.value);
+            });
+            max = d3.max(temp, function (d) {
+                return Number(d.value);
+            });
+
+            if (min === max) {
+                if (min > 0) {
+                    min = Number(max) / 1.01;
+                    max = Number(max);
+                } else if (min < 0) {
+                    min = Number(max);
+                    max = Number(max) * 1.01;
+                } else if (min === 0) {
+                    max = Number(max) + 1;
+                }
             }
         }
-
         return [min, max];
     };
 
-    Chart.prototype.getSecYMinMax = function(data) {
+    Chart.prototype.getSecYMinMax = function (data) {
         var self = this;
         var merged_data = [];
-        $.each(data, function(id, val) {
+        $.each(data, function (id, val) {
             if (val.parentYAxis && val.parentYAxis == 'S') {
                 $.merge(merged_data, val.data);
             }
@@ -380,7 +393,7 @@ define(['jquery', 'd3'], function($, d3) {
         return extent;
     };
 
-    Chart.prototype.formatNumber = function(value, currency) {
+    Chart.prototype.formatNumber = function (value, currency) {
         var self = this;
         var format = d3.format(",.2f");
         if (currency !== undefined) {

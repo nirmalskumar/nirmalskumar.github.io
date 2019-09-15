@@ -2,17 +2,22 @@ require(['./conf/dev'], function () {
     require(['jquery', 'data/mscombo_data'], function ($, MSComboData) {
         $(document).ready(function () {
             var values = {
-                'min': 45,
-                'max': 55
+                'usage-min': 45,
+                'usage-max': 55,
+                'high-min': 80,
+                'high-max': 90,
+                'low-min': 0,
+                'low-max': 10
             };
             var mscombo_data;
             $("#redraw").click(function () {
                 var $inputs = $('#range-form :input');
                 $inputs.each(function () {
-                    if (this.name == 'min' || this.name == 'max') {
+                    if (this.name.match('min') || this.name.match('max')) {
                         values[this.name] = $(this).val();
                     }
                 });
+                
                 mscombo_data = MSComboData.getRandomData(values);
                 $('.canvas').empty();
                 drawChart();
@@ -24,7 +29,7 @@ require(['./conf/dev'], function () {
                   }, 1);
                 
             });
-
+            
             mscombo_data = MSComboData.getRandomData(values);
             drawChart();
 
@@ -53,6 +58,7 @@ require(['./conf/dev'], function () {
                             },
                             showValues: false,
                             showGridLines: true,
+                            displayInteger: true
                         },
                         dataset: mscombo_data
                     });

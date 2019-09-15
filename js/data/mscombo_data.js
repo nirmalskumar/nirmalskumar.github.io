@@ -52,9 +52,9 @@ define(['d3'], function (d3) {
     };
 
     var get_random_data = function (range) {
-        generate_random_data(usage_data, Number(range['min']), Number(range['max']));
-        generate_random_data(high_temperature, 50, 70);
-        generate_random_data(low_temperature, 10, 20);
+        generate_random_data(usage_data, Number(range['usage-min']), Number(range['usage-max']));
+        generate_random_data(high_temperature, Number(range['high-min']), Number(range['high-max']));
+        generate_random_data(low_temperature, Number(range['low-min']), Number(range['low-max']));
         dt = [];
         dt.push(usage_data, high_temperature, low_temperature);
 

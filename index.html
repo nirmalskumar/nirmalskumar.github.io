@@ -21,14 +21,56 @@
 			<div class="field-body">
 				<div class="field">
 					<p class="control">
-						<input class="input" type="text" name="min" placeholder="Minimum" value=45 />
+						<input class="input" type="text" name="usage-min" placeholder="Minimum" value=45 />
 					</p>
 				</div>
 				<div class="field">
 					<p class="control">
-						<input class="input" type="text" name="max" placeholder="Maximum" value=55 />
+						<input class="input" type="text" name="usage-max" placeholder="Maximum" value=55 />
 					</p>
 				</div>
+
+			</div>
+		</div>
+		<div class="field is-horizontal">
+			<div class="field-label is-normal">
+				<label class="label">High Temperature</label>
+			</div>
+			<div class="field-body">
+				<div class="field">
+					<p class="control">
+						<input class="input" type="text" name="high-min" placeholder="Minimum" value=80 />
+					</p>
+				</div>
+				<div class="field">
+					<p class="control">
+						<input class="input" type="text" name="high-max" placeholder="Maximum" value=90 />
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="field is-horizontal">
+			<div class="field-label is-normal">
+				<label class="label">Low Temperature</label>
+			</div>
+			<div class="field-body">
+				<div class="field">
+					<p class="control">
+						<input class="input" type="text" name="low-min" placeholder="Minimum" value=0 />
+					</p>
+				</div>
+				<div class="field">
+					<p class="control">
+						<input class="input" type="text" name="low-max" placeholder="Maximum" value=10 />
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="field is-horizontal">
+			<div class="field-label">
+				<!-- Left empty for spacing -->
+			</div>
+			<div class="field-body">
 				<div class="field">
 					<div class="control">
 						<button id="redraw" type="submit" class="button is-info">
@@ -37,12 +79,12 @@
 					</div>
 				</div>
 				<div class="field">
-						<div class="control">
-							<button id="reset" type="reset" class="button is-light">
-								Reset
-							</button>
-						</div>
+					<div class="control">
+						<button id="reset" type="reset" class="button is-light">
+							Reset
+						</button>
 					</div>
+				</div>
 			</div>
 		</div>
 	</form>
