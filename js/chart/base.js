@@ -256,7 +256,6 @@ define(['jquery', 'd3'], function ($, d3) {
                 ticks_number = 10;
             }
         }
-        console.log(ticks_number, min, max);
         return ticks_number;
     };
 
