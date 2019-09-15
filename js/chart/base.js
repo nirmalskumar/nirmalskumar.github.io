@@ -185,7 +185,7 @@ define(['jquery', 'd3'], function ($, d3) {
 
         var x_domain = x_scale.domain();
         var domain_length = x_domain.length;
-        
+
         x_axis.tickValues(x_domain.filter(function (d, i) {
             if (i == 0) {
                 return !i;
@@ -218,9 +218,28 @@ define(['jquery', 'd3'], function ($, d3) {
             canvas.append("g").attr("class", "axis").attr("transform", "translate( " + config.width + ", 0 )").call(y_axis);
         } else {
             ticks_number = self.setYTicks(min, max);
-            y_axis.ticks(ticks_number).tickFormat(function (d) {
-                if (Number.isInteger(d)) {
-                    return d;
+            y_axis.ticks(ticks_number).tickFormat(function (d, i, n) {
+                
+                if(i == 0){
+                    if (Number.isInteger(d)) {
+                        return d;
+                    }
+                    else{
+                        return parseInt(d, 10);
+                    }
+                }
+                else if(n[i+1]){
+                    if (Number.isInteger(d)) {
+                        return d;
+                    }   
+                }
+                else{
+                    if (Number.isInteger(d)) {
+                        return d;
+                    }
+                    else{
+                        return parseInt(d, 10);
+                    }
                 }
             });
             canvas.append("g").attr("class", "axis").call(y_axis);
@@ -229,7 +248,7 @@ define(['jquery', 'd3'], function ($, d3) {
 
     Chart.prototype.setYTicks = function (min, max, orientation) {
         var ticks_number = 5;
-
+        
         if (min >= 0 && max < 10) {
             ticks_number = max;
         }
@@ -239,7 +258,6 @@ define(['jquery', 'd3'], function ($, d3) {
                 ticks_number = 10;
             }
         }
-
         return ticks_number;
     };
 
