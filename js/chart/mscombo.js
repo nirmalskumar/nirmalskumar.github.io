@@ -227,8 +227,8 @@ define(['jquery', 'd3', 'chartBase'], function($, d3, Chart) {
 
         });
 
-        self.attachX(canvas, config, x_axis, options.chart.transformLabels);
-        self.attachY(canvas, config, y_axis,adjusted_min_max.y1min, adjusted_min_max.y1max, '', options.chart.displayInteger);
+        self.attachX(canvas, config, x_axis, x_scale, options.chart.transformLabels);
+        self.attachY(canvas, config, y_axis,adjusted_min_max.y1min, adjusted_min_max.y1max);
         self.attachY(canvas, config, y1_axis,adjusted_min_max.y2min, adjusted_min_max.y2max, 'right');
 
         self.displayChartTitle(canvas, config, options.chart.caption);

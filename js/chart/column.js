@@ -104,7 +104,7 @@ define(['jquery', 'd3', 'chartBase'], function($, d3, Chart) {
         }
 
 
-        self.attachX(canvas, config, x_axis, options.chart.transformLabels);
+        self.attachX(canvas, config, x_axis, x_scale, options.chart.transformLabels);
         self.attachY(canvas, config, y_axis, min_max[0],min_max[1],'',options.chart.displayInteger);
         self.displayChartTitle(canvas, config, options.chart.caption);
         self.displayXAxisTitle(canvas, config, options.chart.xAxis.title);

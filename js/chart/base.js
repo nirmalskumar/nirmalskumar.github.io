@@ -178,11 +178,22 @@ define(['jquery', 'd3'], function ($, d3) {
 
     };
 
-    Chart.prototype.attachX = function (canvas, config, x_axis, transformLabels) {
-
+    Chart.prototype.attachX = function (canvas, config, x_axis, x_scale, transformLabels) {
         var xaxis = canvas.append("g")
             .attr("transform", "translate(0," + config.height + ")")
             .attr("class", "axis");
+
+        var x_domain = x_scale.domain();
+        var domain_length = x_domain.length;
+        
+        x_axis.tickValues(x_domain.filter(function (d, i) {
+            if (i == 0) {
+                return !i;
+
+            } else if (i == parseInt(domain_length / 2, 10) || i == domain_length - 1) {
+                return i;
+            }
+        }));
 
         if (transformLabels === true) {
             xaxis.call(x_axis)
@@ -196,19 +207,6 @@ define(['jquery', 'd3'], function ($, d3) {
         } else {
             xaxis.call(x_axis);
         }
-
-        var ticks = canvas.selectAll(".tick text");
-        var ticks_count = ticks.size();
-        //Only three labels will be displayed on X-axis
-        var mid = parseInt(ticks_count / 2, 10);
-        var first = 0;
-        var last = ticks_count - 1;
-        ticks.attr("class", function (d, i) {
-            // Note: i starts from zero
-            if (i !== first && i !== last && i !== mid) {
-                d3.select(this).remove();
-            }
-        });
     };
 
     Chart.prototype.attachY = function (canvas, config, y_axis, min, max, orientation) {
@@ -220,24 +218,28 @@ define(['jquery', 'd3'], function ($, d3) {
             canvas.append("g").attr("class", "axis").attr("transform", "translate( " + config.width + ", 0 )").call(y_axis);
         } else {
             ticks_number = self.setYTicks(min, max);
-            y_axis.ticks(ticks_number).tickFormat(d3.format("d"));
+            y_axis.ticks(ticks_number).tickFormat(function (d) {
+                if (Number.isInteger(d)) {
+                    return d;
+                }
+            });
             canvas.append("g").attr("class", "axis").call(y_axis);
         }
     };
 
-    Chart.prototype.setYTicks = function(min, max, orientation){
+    Chart.prototype.setYTicks = function (min, max, orientation) {
         var ticks_number = 5;
-        
-        if(min >= 0 && max < 10){
+
+        if (min >= 0 && max < 10) {
             ticks_number = max;
         }
 
-        if(orientation == 'right'){  
-            if(max >= 10){
+        if (orientation == 'right') {
+            if (max >= 10) {
                 ticks_number = 10;
             }
         }
-        
+
         return ticks_number;
     };
 
