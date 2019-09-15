@@ -93,14 +93,7 @@ define(['jquery', 'd3', 'chartBase'], function($, d3, Chart) {
             return;
         }
 
-        //Adding buffer for min and max value
-        if (min_max[0] > 0 && min_max[1] > 0) {
-            y_scale.domain([min_max[0] / 1.30, min_max[1] * 1.30]).nice();
-        } else if (min_max[0] < 0 && min_max[1] < 0) {
-            y_scale.domain([min_max[0], 0]).nice();
-        } else {
-            y_scale.domain([min_max[0], min_max[1] * 1.30]).nice();
-        }
+        y_scale.domain([min_max[0], min_max[1]]).nice();
 
         // Appending horizontal gridlines.
         // SVG elements are rendered in the order of appending.

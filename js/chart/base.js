@@ -211,28 +211,34 @@ define(['jquery', 'd3'], function ($, d3) {
         });
     };
 
-    Chart.prototype.attachY = function (canvas, config, y_axis, min, max, orientation, displayInteger) {
-        if (displayInteger) {
-            if (max < 10 && min >= 0) {
-                y_axis.ticks(max).tickFormat(d3.format("d"));
-            } else {
-                y_axis.ticks(5).tickFormat(d3.format("d"));
-            }
-        } else {
-            //y_axis.ticks(5);
-        }
+    Chart.prototype.attachY = function (canvas, config, y_axis, min, max, orientation) {
+        var self = this;
+        var ticks_number;
         if (orientation == 'right') {
-            min = 10 * Math.round(min / 10);
-            max = 10 * Math.round(max / 10);
-            
-            y_axis.tickValues(d3.ticks(min, max, 10));
-            
+            ticks_number = self.setYTicks(min, max, 'right');
+            y_axis.tickValues(d3.ticks(min, max, ticks_number)).tickFormat(d3.format("d"));
             canvas.append("g").attr("class", "axis").attr("transform", "translate( " + config.width + ", 0 )").call(y_axis);
         } else {
-            console.log(min, max);
-            y_axis.ticks(5);
+            ticks_number = self.setYTicks(min, max);
+            y_axis.ticks(ticks_number).tickFormat(d3.format("d"));
             canvas.append("g").attr("class", "axis").call(y_axis);
         }
+    };
+
+    Chart.prototype.setYTicks = function(min, max, orientation){
+        var ticks_number = 5;
+        
+        if(min >= 0 && max < 10){
+            ticks_number = max;
+        }
+
+        if(orientation == 'right'){  
+            if(max >= 10){
+                ticks_number = 10;
+            }
+        }
+        
+        return ticks_number;
     };
 
     Chart.prototype.showValues = function (canvas, dataset, x_scale, y_scale) {
@@ -376,6 +382,10 @@ define(['jquery', 'd3'], function ($, d3) {
                 } else if (min === 0) {
                     max = Number(max) + 1;
                 }
+            }
+            else {
+                min = min / 1.01;
+                max = max * 1.01;
             }
         }
         return [min, max];

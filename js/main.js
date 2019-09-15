@@ -20,7 +20,8 @@ require(['./conf/dev'], function () {
                 
                 mscombo_data = MSComboData.getRandomData(values);
                 $('.canvas').empty();
-                drawChart();
+                drawComboChart();
+                drawColChart();
                 return false;
             });
             $("#range-form").on('reset', function(){
@@ -31,9 +32,10 @@ require(['./conf/dev'], function () {
             });
             
             mscombo_data = MSComboData.getRandomData(values);
-            drawChart();
+            drawComboChart();
+            drawColChart();
 
-            function drawChart() {
+            function drawComboChart() {
                 require(['chart/mscombo'], function (MS) {
                     MS.render({
                         chart: {
@@ -61,6 +63,34 @@ require(['./conf/dev'], function () {
                             displayInteger: true
                         },
                         dataset: mscombo_data
+                    });
+                });
+            }
+
+            function drawColChart(){
+                require(['chart/column'], function(Column){
+                    Column.render({
+                        chart: {
+                            anchor: "#col-chart",
+                            xAxis: {
+                                title: "Days",
+                                dateSeries: {
+                                    format_date: true,
+                                    input_dt_format: "YYYY-MM-DD",
+                                    output_dt_format: "%d-%b",
+                                    from_date: '2019-08-01',
+                                    to_date: '2019-08-30'
+                                },
+                            },
+                            yAxis: {
+                                title: 'Usage',
+                                unit: 'kWh'
+                            },
+                            showValues: false,
+                            showGridLines: true,
+                            displayInteger: true
+                        },
+                        dataset: mscombo_data[0]['data']
                     });
                 });
             }
