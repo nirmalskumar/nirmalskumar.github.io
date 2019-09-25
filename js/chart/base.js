@@ -107,9 +107,7 @@ define(['jquery', 'd3'], function ($, d3) {
     };
 
     Chart.prototype.y1Axis = function (y_scale) {
-        var y1_axis = d3.axisRight(y_scale).tickPadding(5).tickFormat(function (d) {
-            return d + '°'
-        });
+        var y1_axis = d3.axisRight(y_scale).tickPadding(5);
         return y1_axis;
     };
 
@@ -209,54 +207,34 @@ define(['jquery', 'd3'], function ($, d3) {
         }
     };
 
-    Chart.prototype.attachY = function (canvas, config, y_axis, min, max, orientation) {
-        var self = this;
-        var ticks_number;
+    Chart.prototype.attachY = function (canvas, config, y_axis, orientation) {
         if (orientation == 'right') {
-            ticks_number = self.setYTicks(min, max, 'right');
-            y_axis.tickValues(d3.ticks(min, max, ticks_number)).tickFormat(d3.format("d"));
+            y_axis.ticks().tickFormat(function (d) {
+                console.log(d % 10);
+                if(d % 10 == 0){
+                    return d + '°';
+                }
+            })
+            .tickSizeInner(0)
+            .tickSizeOuter(5);
             canvas.append("g").attr("class", "axis").attr("transform", "translate( " + config.width + ", 0 )").call(y_axis);
         } else {
-            ticks_number = self.setYTicks(min, max);
-            y_axis.ticks(ticks_number).tickFormat(function (d, i, n) {
-                if(n[i+1]){
-                    if (Number.isInteger(d)) {
-                        return d;
-                    }
-                    else if(i == 0){
-                            return parseInt(d, 10);
-                    }
+            y_axis.ticks(5).tickFormat(function(d, i, n){
+                if(d % 1 == 0){
+                    return d3.format("d")(d);
                 }
-                else{
-                    if (Number.isInteger(d)) {
-                        return d;
-                    }
-                    else{
-                        return parseInt(d, 10);
-                    }
+                else if(i == 0){
+                    return d;
+                }
+                else if(! n[i + 1] && n[i-1].innerHTML % 1 !== 0){
+                    return d;
+                }
+                else {
+                    d3.select(n[i].previousSibling).remove();
                 }
             });
             canvas.append("g").attr("class", "axis").call(y_axis);
         }
-    };
-
-    Chart.prototype.setYTicks = function (min, max, orientation) {
-        var ticks_number = 5;
-        
-        if (min >= 0 && max < 10) {
-            ticks_number = max;
-        }
-
-        if((max - min) < 2){
-            ticks_number = 2;
-        }
-
-        if (orientation == 'right') {
-            if (max >= 10) {
-                ticks_number = 10;
-            }
-        }
-        return ticks_number;
     };
 
     Chart.prototype.showValues = function (canvas, dataset, x_scale, y_scale) {
@@ -402,13 +380,8 @@ define(['jquery', 'd3'], function ($, d3) {
                 }
             }
             else {
-                if(max - min < 2){
-                    min = min / 1.001;
-                }
-                else {
-                    min = min / 1.01;
-                    max = max * 1.01;
-                }
+                min = min / 1.01;
+                max = max * 1.01;
             }
         }
         return [min, max];
