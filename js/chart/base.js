@@ -210,7 +210,6 @@ define(['jquery', 'd3'], function ($, d3) {
     Chart.prototype.attachY = function (canvas, config, y_axis, orientation) {
         if (orientation == 'right') {
             y_axis.ticks().tickFormat(function (d) {
-                console.log(d % 10);
                 if(d % 10 == 0){
                     return d + '°';
                 }
