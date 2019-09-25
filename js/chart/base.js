@@ -209,24 +209,44 @@ define(['jquery', 'd3'], function ($, d3) {
 
     Chart.prototype.attachY = function (canvas, config, y_axis, orientation) {
         if (orientation == 'right') {
-            y_axis.ticks().tickFormat(function (d) {
-                if(d % 10 == 0){
+            y_axis.ticks().tickFormat(function (d, i, n) {
+                if (d % 10 == 0) {
                     return d + '°';
                 }
-            })
-            .tickSizeInner(0)
-            .tickSizeOuter(5);
+                else if (i == 0) {
+                    return Math.floor(d / 10) * 10;
+                }
+                else if (!n[i + 1]) {
+                    var prev_tick = n[i - 1].innerHTML;
+                    if (!prev_tick) {
+                        return Math.ceil(d / 10) * 10 + '°';
+                    }
+                    else {
+                        prev_tick = prev_tick.replace('°', '');
+                        if (prev_tick % 10 !== 0) {
+                            return Math.ceil(d / 10) * 10 + '°';
+                        }
+                    }
+                }
+                else {
+                    d3.select(n[i].previousSibling).remove();
+                }
+            });
             canvas.append("g").attr("class", "axis").attr("transform", "translate( " + config.width + ", 0 )").call(y_axis);
         } else {
-            y_axis.ticks(5).tickFormat(function(d, i, n){
-                if(d % 1 == 0){
+            y_axis.ticks(5).tickFormat(function (d, i, n) {
+                console.log(d);
+                if (d % 1 == 0) {
                     return d3.format("d")(d);
                 }
-                else if(i == 0){
+                else if (i == 0) {
                     return d;
                 }
-                else if(! n[i + 1] && n[i-1].innerHTML % 1 !== 0){
-                    return d;
+                else if (!n[i + 1]){
+                    var prev_tick = n[i - 1].innerHTML;
+                    if (!prev_tick || prev_tick % 1 !== 0) {
+                        return d;
+                    }   
                 }
                 else {
                     d3.select(n[i].previousSibling).remove();
